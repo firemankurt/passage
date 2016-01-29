@@ -39,8 +39,8 @@ class Keys extends Controller
             <div class="padded-container">
                 <div class="callout callout-info">
                     <div class="header">
-                    <p>It looks like you have "Frontend User Roles Manager" installed.
-                    I can try help you transfer data over to the "Passage Keys" to save you time.
+                    <p>It looks like you have "Frontend User Roles Manager" installed.<br />
+                    I can try help you transfer data over to the "Passage Keys" to save you time.<br />
                     For best results press red buttons in order from Left to Right.</p>
                     <a href="#"
                       data-request="onConvertFromPerms"
@@ -49,6 +49,7 @@ class Keys extends Controller
                       class="btn btn-danger  oc-icon-exchange ">
                       (1) Transfer Permissions to Passage Keys
                     </a>
+                    <p>&nbsp;</p>
 
                     <a href="#"
                       data-request="onConvertFromRoles"
@@ -56,7 +57,7 @@ class Keys extends Controller
                       data-request-confirm="Are you sure you want all Roles copied into User Groups?"
                       class="btn btn-danger  oc-icon-exchange ">
                       (2) Transfer Roles to User Groups
-                    </a>
+                    </a><p>&nbsp;</p>
 
                     <a href="#"
                       data-request="onConvertFromRolesPerms"
