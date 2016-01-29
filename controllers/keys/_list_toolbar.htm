@@ -1,0 +1,14 @@
+<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li><a href="<?= Backend::url('kurtjensen/mailgun/mailgun') ?>">Mailgun</a></li>
+        <li><?= e($this->pageTitle) ?></li>
+    </ul>
+<?php Block::endPut() ?>
+<?= $this->addBtns ?>
+<div data-control="toolbar">
+    <a
+        href="<?= Backend::url('kurtjensen/passage/keys/create') ?>"
+        class="btn btn-primary oc-icon-plus">
+        New Passage Key
+    </a>
+</div>
