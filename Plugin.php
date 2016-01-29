@@ -15,6 +15,8 @@ class Plugin extends PluginBase
 {
     public static $keys = [];
 
+    public $require = ['RainLab.User'];
+
     /**
      * Returns information about this plugin.
      *
