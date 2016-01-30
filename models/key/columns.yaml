@@ -4,14 +4,14 @@
 
 columns:
     name:
-        label: name
+        label: kurtjensen.passage::lang.key.name
         searchable: true
     description:
-        label: description
+        label: kurtjensen.passage::lang.key.description
         searchable: true
     updated_at:
-        label: updated
+        label: kurtjensen.passage::lang.key.updated
         searchable: false
     created_at:
-        label: created
+        label: kurtjensen.passage::lang.key.created
         searchable: false

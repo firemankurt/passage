@@ -11,4 +11,18 @@ return [
         'permiss_label' => 'Manage key names for front-end user-group permissions.',
         'permiss_label_ug' => 'Manage front-end user-group permissions.',
     ],
+    'keys_comp' => [//Controller
+        'page_title' => 'Manage Passage Keys',
+        'new' => 'New Key',
+        'keys' => 'Keys',
+        'return' => 'Return to keys list',
+        '' => '',
+    ],
+    'key' => [// Model
+        'id' => 'ID',
+        'name' => 'Name',
+        'description' => 'Description',
+        'updated' => 'Updated',
+        'created' => 'Created',
+    ],
 ];

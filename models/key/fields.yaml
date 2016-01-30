@@ -4,9 +4,9 @@
 
 fields:
     id:
-        label: ID
+        label: kurtjensen.passage::lang.key.id
         disabled: true
     name:
-        label: NAME
+        label: kurtjensen.passage::lang.key.name
     description:
-        label: description
+        label: kurtjensen.passage::lang.key.description

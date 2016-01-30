@@ -9,7 +9,7 @@ list: $/kurtjensen/passage/models/key/columns.yaml
 modelClass: KurtJensen\Passage\Models\Key
 
 # List Title
-title: Manage Keys
+title: kurtjensen.passage::lang.keys_comp.page_title
 
 # Link URL for each record
 recordUrl: kurtjensen/passage/keys/update/:id

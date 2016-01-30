@@ -1,6 +1,6 @@
 <?php Block::put('breadcrumb') ?>
     <ul>
-        <li><a href="<?= Backend::url('kurtjensen/passage/keys') ?>">Keys</a></li>
+        <li><a href="<?= Backend::url('kurtjensen/passage/keys') ?>"><?= e(trans('kurtjensen.passage::lang.keys_comp.keys')) ?></a></li>
         <li><?= e($this->pageTitle) ?></li>
     </ul>
 <?php Block::endPut() ?>
@@ -21,7 +21,7 @@
                     data-hotkey="ctrl+s, cmd+s"
                     data-load-indicator="Creating Key..."
                     class="btn btn-primary">
-                    Create
+                    <?= e(trans('backend::lang.form.create')) ?>
                 </button>
                 <button
                     type="button"
@@ -30,10 +30,10 @@
                     data-hotkey="ctrl+enter, cmd+enter"
                     data-load-indicator="Creating Key..."
                     class="btn btn-default">
-                    Create and Close
+                    <?= e(trans('backend::lang.form.create_and_close')) ?>
                 </button>
                 <span class="btn-text">
-                    or <a href="<?= Backend::url('kurtjensen/passage/keys') ?>">Cancel</a>
+                    <?= e(trans('backend::lang.form.or')) ?> <a href="<?= Backend::url('kurtjensen/passage/keys') ?>"><?= e(trans('backend::lang.form.cancel')) ?></a>
                 </span>
             </div>
         </div>
@@ -43,6 +43,6 @@
 <?php else: ?>
 
     <p class="flash-message static error"><?= e($this->fatalError) ?></p>
-    <p><a href="<?= Backend::url('kurtjensen/passage/keys') ?>" class="btn btn-default">Return to keys list</a></p>
+    <p><a href="<?= Backend::url('kurtjensen/passage/keys') ?>" class="btn btn-default"><?= e(trans('kurtjensen.passage::lang.keys_comp.return')) ?></a></p>
 
 <?php endif ?>
