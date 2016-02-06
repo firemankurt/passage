@@ -28,6 +28,18 @@ On a page you may restrict access to a portion of view by using the following co
     {% endif %}
 
 
+
+    {% if inGroup('My Admins') %}
+
+    <p>This will show only if the user belongs to a Rainlab.User Usergroup that is named "My Admins".</p>
+
+    {% else %}
+
+    <p>This will show if the user DOES NOT belong to a Rainlab.User Usergroup that is named "My Admins".</p>
+
+    {% endif %}
+
+
     <p>This will show for all users regardless of permissions.</p>
 
 

@@ -29,6 +29,7 @@ class Plugin extends PluginBase
             'description' => 'No description provided yet...',
             'author' => 'KurtJensen',
             'icon' => 'icon-key',
+            'message_url' => 'http://firemankurt.com/notices/',
         ];
     }
 
@@ -133,8 +134,14 @@ class Plugin extends PluginBase
         return [
             'functions' => [
                 'can' => function ($lock) {return $this->can($lock);},
+                'inGroup' => function ($group) {return $this->inGroup($group);},
             ],
         ];
+    }
+
+    private function inGroup($group)
+    {
+        return (Auth::getUser()->groups->where('name', $group)->first()) ? true : false;
     }
 
     private function can($lock)

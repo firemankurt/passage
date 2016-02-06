@@ -1,3 +1,4 @@
 1.0.1:
     - Initialize plugin.
     - create_tables.php
+1.0.2: Added replacement twig tag for hasRole() called inGroup(). This checks to see if user belongs to RainLab\User\Models\UserGroup.
