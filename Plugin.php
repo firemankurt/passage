@@ -141,7 +141,11 @@ class Plugin extends PluginBase
 
     private function inGroup($group)
     {
-        return (Auth::getUser()->groups->where('name', $group)->first()) ? true : false;
+        if (!$user = Auth::getUser()) {
+            return false;
+        }
+
+        return ($user->groups->where('name', $group)->first()) ? true : false;
     }
 
     private function can($lock)
