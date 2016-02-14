@@ -3,3 +3,4 @@
     - create_tables.php
 1.0.2: Added replacement twig tag for hasRole() called inGroup(). This checks to see if user belongs to RainLab\User\Models\UserGroup.
 1.0.3: Fixed error caused by inGroup($group) on non-logged in user.
+1.0.4: Added messageURL() to enable Author Notices

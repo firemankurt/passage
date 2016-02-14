@@ -26,11 +26,15 @@ class Plugin extends PluginBase
     {
         return [
             'name' => 'passage',
-            'description' => 'No description provided yet...',
+            'description' => 'Fast, Efficient permission system for controlling access to your website resources.',
             'author' => 'KurtJensen',
             'icon' => 'icon-key',
-            'message_url' => 'http://firemankurt.com/notices/',
         ];
+    }
+
+    public function messageURL()
+    {
+        return 'http://firemankurt.com/notices/';
     }
 
     public function boot()
