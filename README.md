@@ -1,6 +1,6 @@
 # Passage plugin
 
-( Installation code : __kurtjensen.mycalendar__ ) Requires ( __RainLab.User__ )
+( Installation code : __kurtjensen.passage__ ) Requires ( __RainLab.User__ )
 This plugin adds a front end user group permission system to [OctoberCMS](http://octobercms.com).
 
 Download the plugin to the plugins directory and logout and log in back into October backend. Go to the Passage Keys page via the side menu in users in the backend and add your permissions/keys.
