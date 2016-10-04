@@ -14,6 +14,7 @@ use System\Classes\PluginBase;
 class Plugin extends PluginBase
 {
     public static $keys = [];
+    public static $groups = null;
 
     public $require = ['RainLab.User'];
 
@@ -139,11 +140,24 @@ class Plugin extends PluginBase
             'functions' => [
                 'can' => function ($lock) {return $this->can($lock);},
                 'inGroup' => function ($group) {return $this->inGroup($group);},
+                'inGroupName' => function ($group) {return $this->inGroupName($group);},
             ],
         ];
     }
 
     private function inGroup($group)
+    {
+        $answer = in_array($group, $this->passage_groups());
+        if (!$answer) {
+            $answer = inGroupName($group);
+            if ($answer) {
+                trigger_error("Possible Deprecated use of twig function inGroup. The inGroup funtion now should use the unique user group code rather than the user group name.", E_USER_NOTICE);
+            }
+        }
+        return $answer;
+    }
+
+    private function inGroupName($group)
     {
         if (!$user = Auth::getUser()) {
             return false;
@@ -155,6 +169,17 @@ class Plugin extends PluginBase
     private function can($lock)
     {
         return in_array($lock, self::passage_keys());
+    }
+
+    public static function passage_groups()
+    {
+        if (self::$groups === null) {
+            if (!$user = Auth::getUser()) {
+                return self::$groups = [];
+            }
+            self::$groups = $user->groups->lists('name', 'code');
+        }
+        return self::$groups;
     }
 
     public static function passage_keys()
@@ -173,6 +198,42 @@ class Plugin extends PluginBase
     }
 
     public static function globalPassageKeys()
-    {return \System\Classes\PluginManager::instance()->findByNamespace(__CLASS__)->passage_keys();}
+    {
+        trigger_error("globalPassageKeys() Deprecated use passageKeys() instead.", E_USER_NOTICE);
+        return \System\Classes\PluginManager::instance()->findByNamespace(__CLASS__)->passage_keys();
+    }
 
+    public static function passageKeys()
+    {
+        return \System\Classes\PluginManager::instance()->findByNamespace(__CLASS__)->passage_keys();
+    }
+
+    public static function hasKeyName($key_name)
+    {
+        $keys = \System\Classes\PluginManager::instance()->findByNamespace(__CLASS__)->passage_keys();
+        return in_array($key_name, $keys);
+    }
+
+    public static function hasKey($key_id)
+    {
+        $keys = \System\Classes\PluginManager::instance()->findByNamespace(__CLASS__)->passage_keys();
+        return array_key_exists($key_id, $keys);
+    }
+
+    public static function passageGroups()
+    {
+        return \System\Classes\PluginManager::instance()->findByNamespace(__CLASS__)->passage_groups();
+    }
+
+    public static function hasGroupName($group_name)
+    {
+        $groups = \System\Classes\PluginManager::instance()->findByNamespace(__CLASS__)->passage_groups();
+        return in_array($group_name, $groups);
+    }
+
+    public static function hasGroup($group_code)
+    {
+        $groups = \System\Classes\PluginManager::instance()->findByNamespace(__CLASS__)->passage_groups();
+        return array_key_exists($group_code, $groups);
+    }
 }

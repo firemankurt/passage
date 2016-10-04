@@ -29,7 +29,21 @@ On a page you may restrict access to a portion of view by using the following co
 
 
 
-    {% if inGroup('My Admins') %}
+    {% if inGroup('my_admins') %}
+
+    <p>This will show only if the user belongs to a Rainlab.User Usergroup that has the code "my_admins".</p>
+
+    {% else %}
+
+    <p>This will show if the user DOES NOT belong to a Rainlab.User Usergroup that has the code "my_admins".</p>
+
+    {% endif %}
+
+
+    <p>This will show for all users regardless of permissions.</p>
+
+
+    {% if inGroupName('My Admins') %}
 
     <p>This will show only if the user belongs to a Rainlab.User Usergroup that is named "My Admins".</p>
 
@@ -45,34 +59,70 @@ On a page you may restrict access to a portion of view by using the following co
 
 ###User Permisions in Your Own Plugins######
 
-In your plugin you may restrict access to a portion of code:
 
 
-	$permission_keys_by_name = \KurtJensen\Passage\Plugin::globalPassageKeys();
+	// Get all permision keys for the user in an array
+	$permission_keys_by_name = \KurtJensen\Passage\Plugin::passageKeys();
 
-	// Then check the array against the keys you want to use
+	/**
+	* OR
+	* 
+	* In your plugin you may restrict access to a portion of code:
+	**/
 
-	if(in_array( 'view_magic_dragon', $permission_keys_by_name)) {
+	// check for permission directly using hasKeyName( $key_name )
+	$permissionGranted = \KurtJensen\Passage\Plugin::hasKeyName('view_magic_dragon');
+	if($permissionGranted) {
 		// Do stuff
 	}
 
 	/**
-	* or
+	* OR
 	* 
-	* 	lets say you have a model that uses a permission field and want to
-	*  	see if model permission matches.
+	* 	Lets say you have a model that uses a permission field containg the id of a
+	*   permission key and want to see if model permission matches.
 	* 
 	* 	Example:
-	* 	$model->perm = 5 which came from a dropdown that contained keys 
-	* 	from \KurtJensen\Passage\Plugin::globalPassageKeys();
+	* 	$model->perm_id = 5 which came from a dropdown that contained keys 
+	* 	from \KurtJensen\Passage\Plugin::passageKeys();
 	**/
 
-	// flip the array to get keys
-	$permission_keys_by_id = array_flip(\KurtJensen\Passage\Plugin::globalPassageKeys());
 	$model = Model::first();
-	if(in_array( $model->perm, $permission_keys_by_id)) {
-		// Do stuff
-	}
+	// check for permission directly using hasKey( $key_id )
+	if(\KurtJensen\Passage\Plugin::hasKey($model->perm_id)) {
+        // Do Stuff
+    }else{
+        // Do other Stuff if user does NOT have permission  
+    }
+
+	/**
+	* OR
+	* 
+	* 	Get Array of Groups
+	**/
+
+	// You can get array of the users groups keyed by the code of the group
+	$groups = \KurtJensen\Passage\Plugin::passageGroups()
+
+	/**
+	* OR
+	* 
+	* 	Check group membership by group code
+	**/
+
+	// use hasGroup($group_code) to check membership
+	$isCool = \KurtJensen\Passage\Plugin::hasGroup('cool_people')
+
+	/**
+	* OR
+	* 
+	* 	Check group membership by group Name
+	*   Note: Group names are not guaranteed to be unique.
+	*   DO NOT CHECK BY GROUP NAME if security is an issue.
+	**/
+
+	// use hasGroupName($group_name) to check membership
+	$isInGroupNamedCool = \KurtJensen\Passage\Plugin::hasGroupName('Cool')
 
 
 ## Like this plugin?
