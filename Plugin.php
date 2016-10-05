@@ -149,7 +149,7 @@ class Plugin extends PluginBase
     {
         $answer = in_array($group, $this->passage_groups());
         if (!$answer) {
-            $answer = inGroupName($group);
+            $answer = $this->inGroupName($group);
             if ($answer) {
                 trigger_error("Possible Deprecated use of twig function inGroup. The inGroup funtion now should use the unique user group code rather than the user group name.", E_USER_NOTICE);
             }

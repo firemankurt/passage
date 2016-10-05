@@ -6,3 +6,4 @@
 1.0.4: Added messageURL() to enable Author Notices
 1.0.5:
     - !!! This is an important update that contains breaking changes. Changed inGroup to use code instead of name and added methods.
+1.0.6: Fixes error at plugin.php line 152
