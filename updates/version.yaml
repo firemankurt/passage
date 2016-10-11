@@ -7,3 +7,4 @@
 1.0.5:
     - !!! This is an important update that contains breaking changes. Changed inGroup to use code instead of name and added methods.
 1.0.6: Fixes error at plugin.php line 152
+1.0.7: Fixes dumb mistake at plugin.php line 150 and caches groups better
