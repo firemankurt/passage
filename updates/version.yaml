@@ -8,3 +8,4 @@
     - !!! This is an important update that contains breaking changes. Changed inGroup to use code instead of name and added methods.
 1.0.6: Fixes error at plugin.php line 152
 1.0.7: Fixes dumb mistake at plugin.php line 150 and caches groups better
+1.0.8: Added model UsersGroups (from Rainlab) to make easier to get users of a permission key
