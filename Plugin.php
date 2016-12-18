@@ -139,7 +139,7 @@ class Plugin extends PluginBase {
 
 	public static function getUser() {
 		$user = Auth::getUser();
-		if (!$user->is_activated) {
+		if (!$user || !$user->is_activated) {
 			return false;
 		}
 		return $user;
