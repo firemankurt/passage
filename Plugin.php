@@ -137,6 +137,14 @@ class Plugin extends PluginBase {
 		];
 	}
 
+	public static function getUser() {
+		$user = Auth::getUser();
+		if (!$user->is_activated) {
+			return false;
+		}
+		return $user;
+	}
+
 	private function inGroup($code) {
 		$answer = array_key_exists($code, $this->passage_groups());
 		if (!$answer) {
@@ -149,7 +157,7 @@ class Plugin extends PluginBase {
 	}
 
 	private function inGroupName($name) {
-		if (!$user = Auth::getUser()) {
+		if (!$user = self::getUser()) {
 			return false;
 		}
 		return in_array($name, $this->passage_groups());
@@ -161,7 +169,7 @@ class Plugin extends PluginBase {
 
 	public static function passage_groups() {
 		if (self::$groups === null) {
-			if (!$user = Auth::getUser()) {
+			if (!$user = self::getUser()) {
 				return self::$groups = [];
 			}
 			self::$groups = $user->groups->lists('name', 'code');
@@ -171,12 +179,12 @@ class Plugin extends PluginBase {
 
 	public static function passage_keys() {
 		if (!count(self::$keys)) {
-			if (!Auth::getUser()) {
+			if (!self::getUser()) {
 				return [];
 			}
 
 			self::$keys = Key::whereHas('groups.users', function ($q) {
-				$q->where('user_id', Auth::getUser()->id);
+				$q->where('user_id', self::getUser()->id);
 			})
 				->lists('name', 'id');
 		}
