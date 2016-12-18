@@ -10,3 +10,4 @@
 1.0.7: Fixes dumb mistake at plugin.php line 150 and caches groups better
 1.0.8: Added model UsersGroups (from Rainlab) to make easier to get users of a permission key
 1.0.9: Prevents unactivated users from having any permissions
+1.0.10: Fixed nullpointer when no user is logged in ( Thanks jhendess )
