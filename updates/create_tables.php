@@ -12,7 +12,7 @@ class CreateTables extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id')->unsigned();
             $table->string('name');
-            $table->string('description')->nulable();
+            $table->string('description')->nullable();
             $table->timestamps();
         });
 
