@@ -10,31 +10,28 @@ use System\Classes\PluginManager;
 /**
  * Keys Back-end Controller
  */
-class Keys extends Controller
-{
-    public $addBtns = '';
-    public $requiredPermissions = ['kurtjensen.passage.keys'];
-    public $implement = [
-        'Backend.Behaviors.FormController',
-        'Backend.Behaviors.ListController',
-    ];
+class Keys extends Controller {
+	public $addBtns = '';
+	public $requiredPermissions = ['kurtjensen.passage.keys'];
+	public $implement = [
+		'Backend.Behaviors.FormController',
+		'Backend.Behaviors.ListController',
+	];
 
-    public $formConfig = 'config_form.yaml';
-    public $listConfig = 'config_list.yaml';
+	public $formConfig = 'config_form.yaml';
+	public $listConfig = 'config_list.yaml';
 
-    public function __construct()
-    {
-        parent::__construct();
+	public function __construct() {
+		parent::__construct();
 
-        BackendMenu::setContext('RainLab.User', 'user', 'keys');
-    }
+		BackendMenu::setContext('RainLab.User', 'user', 'passage_keys');
+	}
 
-    public function index()
-    {
-        parent::index();
-        $manager = PluginManager::instance();
-        $this->addBtns = ($manager->exists('shahiemseymor.roles')) ?
-        '
+	public function index() {
+		parent::index();
+		$manager = PluginManager::instance();
+		$this->addBtns = ($manager->exists('shahiemseymor.roles')) ?
+		'
         <div class="layout-row">
             <div class="padded-container">
                 <div class="callout callout-info">
@@ -72,56 +69,53 @@ class Keys extends Controller
             </div>
         </div>' : '';
 
-    }
+	}
 
-    public function onConvertFromPerms()
-    {
-        $manager = PluginManager::instance();
-        if ($manager->exists('shahiemseymor.roles')) {
+	public function onConvertFromPerms() {
+		$manager = PluginManager::instance();
+		if ($manager->exists('shahiemseymor.roles')) {
 
-            $perms = DB::table('shahiemseymor_permissions')->get();
-            foreach ($perms as $perm) {
+			$perms = DB::table('shahiemseymor_permissions')->get();
+			foreach ($perms as $perm) {
 
-                $newRows[] = [
-                    'id' => $perm->id,
-                    'name' => $perm->name,
-                    'description' => $perm->display_name];
-            }
-            Key::insert($newRows);
-        }
-    }
+				$newRows[] = [
+					'id' => $perm->id,
+					'name' => $perm->name,
+					'description' => $perm->display_name];
+			}
+			Key::insert($newRows);
+		}
+	}
 
-    public function onConvertFromRoles()
-    {
-        $manager = PluginManager::instance();
-        if ($manager->exists('shahiemseymor.roles')) {
-            $roles = DB::table('shahiemseymor_roles')->get();
-            foreach ($roles as $role) {
+	public function onConvertFromRoles() {
+		$manager = PluginManager::instance();
+		if ($manager->exists('shahiemseymor.roles')) {
+			$roles = DB::table('shahiemseymor_roles')->get();
+			foreach ($roles as $role) {
 
-                $newRows[] = [
-                    'id' => $role->id,
-                    'name' => $role->name,
-                    'code' => str_replace(' ', '_', strtolower($role->name)),
-                    'description' => $role->name];
-            }
+				$newRows[] = [
+					'id' => $role->id,
+					'name' => $role->name,
+					'code' => str_replace(' ', '_', strtolower($role->name)),
+					'description' => $role->name];
+			}
 
-            \RainLab\User\Models\UserGroup::insert($newRows);
-        }
-    }
+			\RainLab\User\Models\UserGroup::insert($newRows);
+		}
+	}
 
-    public function onConvertFromRolesPerms()
-    {
-        $manager = PluginManager::instance();
-        if ($manager->exists('shahiemseymor.roles')) {
-            $permRoles = DB::table('shahiemseymor_permission_role')->get();
-            foreach ($permRoles as $pr) {
+	public function onConvertFromRolesPerms() {
+		$manager = PluginManager::instance();
+		if ($manager->exists('shahiemseymor.roles')) {
+			$permRoles = DB::table('shahiemseymor_permission_role')->get();
+			foreach ($permRoles as $pr) {
 
-                $newRows[] = [
-                    'key_id' => $pr->permission_id,
-                    'user_group_id' => $pr->role_id];
-            }
+				$newRows[] = [
+					'key_id' => $pr->permission_id,
+					'user_group_id' => $pr->role_id];
+			}
 
-            UserGroupsKeys::insert($newRows);
-        }
-    }
+			UserGroupsKeys::insert($newRows);
+		}
+	}
 }

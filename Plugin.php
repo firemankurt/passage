@@ -1,9 +1,11 @@
 <?php namespace KurtJensen\Passage;
 
+use App;
 use Auth;
 use Backend;
 use BackendAuth;
 use Event;
+use Illuminate\Foundation\AliasLoader;
 use KurtJensen\Passage\Models\Key;
 use RainLab\User\Models\UserGroup;
 use System\Classes\PluginBase;
@@ -12,7 +14,7 @@ use System\Classes\PluginBase;
  * passage Plugin Information File
  */
 class Plugin extends PluginBase {
-	public static $keys = [];
+	public static $keys = null;
 	public static $groups = null;
 
 	public $require = ['RainLab.User'];
@@ -44,7 +46,7 @@ class Plugin extends PluginBase {
 
 		Event::listen('backend.menu.extendItems', function ($manager) {
 			$manager->addSideMenuItems('RainLab.User', 'user', [
-				'u_groups' => [
+				'usergroups' => [
 					'label' => 'rainlab.user::lang.groups.all_groups',
 					'icon' => 'icon-group',
 					'code' => 'u_groups',
@@ -86,6 +88,14 @@ class Plugin extends PluginBase {
 				],
 			], 'primary');
 		});
+
+		App::register('\KurtJensen\Passage\Services\PassageServiceProvider'); // Register aliases
+		$alias = AliasLoader::getInstance();
+		$alias->alias('Passage', '\KurtJensen\Passage\Services\PassageServiceProvider');
+
+//		App::register('\KurtJensen\Passage\Classes\Keys'); // Register aliases
+		//		$alias = AliasLoader::getInstance();
+		//		$alias->alias('Passage', '\KurtJensen\Passage\Classes\Keys');
 	}
 
 	/**
@@ -180,11 +190,10 @@ class Plugin extends PluginBase {
 	}
 
 	public static function passage_keys() {
-		if (!count(self::$keys)) {
+		if (self::$keys === null) {
 			if (!self::getUser()) {
 				return [];
 			}
-
 			self::$keys = Key::whereHas('groups.users', function ($q) {
 				$q->where('user_id', self::getUser()->id);
 			})
