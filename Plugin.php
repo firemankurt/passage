@@ -1,12 +1,10 @@
 <?php namespace KurtJensen\Passage;
 
 use App;
-use Auth;
 use Backend;
 use BackendAuth;
 use Event;
 use Illuminate\Foundation\AliasLoader;
-use KurtJensen\Passage\Models\Key;
 use RainLab\User\Models\UserGroup;
 use System\Classes\PluginBase;
 
@@ -89,24 +87,9 @@ class Plugin extends PluginBase {
 			], 'primary');
 		});
 
-		App::register('\KurtJensen\Passage\Services\PassageServiceProvider'); // Register aliases
 		$alias = AliasLoader::getInstance();
-		$alias->alias('Passage', '\KurtJensen\Passage\Services\PassageServiceProvider');
-
-//		App::register('\KurtJensen\Passage\Classes\Keys'); // Register aliases
-		//		$alias = AliasLoader::getInstance();
-		//		$alias->alias('Passage', '\KurtJensen\Passage\Classes\Keys');
-	}
-
-	/**
-	 * Registers any front-end components implemented in this plugin.
-	 *
-	 * @return array
-	 */
-	public function registerComponents() {
-		return [
-			//'KurtJensen\Passage\Components\Lock' => 'Lock',
-		];
+		$alias->alias('PassageService', '\KurtJensen\Passage\Classes\KeyRing');
+		App::register('\KurtJensen\Passage\Services\PassageServiceProvider');
 	}
 
 	/**
@@ -128,110 +111,66 @@ class Plugin extends PluginBase {
 		];
 	}
 
-	/**
-	 * Registers back-end navigation items for this plugin.
-	 *
-	 * @return array
-	 */
-	public function registerNavigation() {
-		return []; // Remove this line to activate
-	}
-
 	public function registerMarkupTags() {
 		return [
 			'functions' => [
-				'can' => function ($lock) {return $this->can($lock);},
-				'inGroup' => function ($group) {return $this->inGroup($group);},
-				'inGroupName' => function ($group) {return $this->inGroupName($group);},
+				'can' => function ($key) {return app('PassageService')::hasKeyName($key);},
+				'hasKeyName' => function ($key) {return app('PassageService')::hasKeyName($key);},
+				'hasKeyNames' => function ($keys) {return app('PassageService')::hasKeyNames($keys);},
+				'hasKey' => function ($key_id) {return app('PassageService')::hasKey($key_id);},
+				'hasKeys' => function ($key_ids) {return app('PassageService')::hasKeys($key_ids);},
+
+				'inGroupName' => function ($group) {return app('PassageService')::inGroupName($group);},
+				'inGroupNames' => function ($groups) {return app('PassageService')::inGroupNames($groups);},
+				'inGroup' => function ($group_key) {return app('PassageService')::inGroup($group_key);},
+				'inGroups' => function ($group_keys) {return app('PassageService')::inGroups($group_keys);},
 			],
 		];
 	}
 
-	public static function getUser() {
-		if (!$user = Auth::getUser()) {
-			return false;
-		}
-		if (!$user->is_activated) {
-			return false;
-		}
-		return $user;
-	}
-
-	private function inGroup($code) {
-		$answer = array_key_exists($code, $this->passage_groups());
-		if (!$answer) {
-			$answer = $this->inGroupName($code);
-			if ($answer) {
-				trigger_error("Possible Deprecated use of twig function inGroup. The inGroup funtion now should use the unique user group code rather than the user group name.", E_USER_NOTICE);
-			}
-		}
-		return $answer;
-	}
-
-	private function inGroupName($name) {
-		if (!$user = self::getUser()) {
-			return false;
-		}
-		return in_array($name, $this->passage_groups());
-	}
-
-	private function can($lock) {
-		return in_array($lock, self::passage_keys());
-	}
-
-	public static function passage_groups() {
-		if (self::$groups === null) {
-			if (!$user = self::getUser()) {
-				return self::$groups = [];
-			}
-			self::$groups = $user->groups->lists('name', 'code');
-		}
-		return self::$groups;
-	}
-
-	public static function passage_keys() {
-		if (self::$keys === null) {
-			if (!self::getUser()) {
-				return [];
-			}
-			self::$keys = Key::whereHas('groups.users', function ($q) {
-				$q->where('user_id', self::getUser()->id);
-			})
-				->lists('name', 'id');
-		}
-		return self::$keys;
-	}
-
 	public static function globalPassageKeys() {
-		trigger_error("globalPassageKeys() Deprecated use passageKeys() instead.", E_USER_NOTICE);
-		return \System\Classes\PluginManager::instance()->findByNamespace(__CLASS__)->passage_keys();
+		traceLog("Deprecated method \KurtJensen\Passage\Plugin::globalPassageKeys() called. Use PassageService::passageKeys() instead. See Passage Upgrade Guide.");
+		//trigger_error("Deprecated method \KurtJensen\Passage\Plugin::globalPassageKeys() called. Use app('PassageService')::passageKeys() instead.", E_USER_DEPRECATED);
+		return app('PassageService')::passageKeys();
 	}
 
 	public static function passageKeys() {
-		return \System\Classes\PluginManager::instance()->findByNamespace(__CLASS__)->passage_keys();
+		traceLog("Deprecated method \KurtJensen\Passage\Plugin::passageKeys() called. Use PassageService::passageKeys() instead. See Passage Upgrade Guide.");
+		//trigger_error("Deprecated method \KurtJensen\Passage\Plugin::passageKeys() called. Use app('PassageService')::passageKeys() instead.", E_USER_DEPRECATED);
+		return app('PassageService')::passageKeys();
 	}
 
 	public static function hasKeyName($key_name) {
-		$keys = \System\Classes\PluginManager::instance()->findByNamespace(__CLASS__)->passage_keys();
+		traceLog("Deprecated method \KurtJensen\Passage\Plugin::hasKeyName() called. Use PassageService::hasKeyName() instead. See Passage Upgrade Guide.");
+		//trigger_error("Deprecated method \KurtJensen\Passage\Plugin::hasKeyName() called. Use app('PassageService')::hasKeyName() instead.", E_USER_DEPRECATED);
+		$keys = app('PassageService')::passageKeys();
 		return in_array($key_name, $keys);
 	}
 
 	public static function hasKey($key_id) {
-		$keys = \System\Classes\PluginManager::instance()->findByNamespace(__CLASS__)->passage_keys();
+		traceLog("Deprecated method \KurtJensen\Passage\Plugin::hasKey() called. Use PassageService::hasKey() instead. See Passage Upgrade Guide.");
+		//trigger_error("Deprecated method \KurtJensen\Passage\Plugin::hasKey() called. Use app('PassageService')::hasKey() instead.", E_USER_DEPRECATED);
+		$keys = app('PassageService')::passageKeys();
 		return array_key_exists($key_id, $keys);
 	}
 
 	public static function passageGroups() {
-		return \System\Classes\PluginManager::instance()->findByNamespace(__CLASS__)->passage_groups();
+		traceLog("Deprecated method \KurtJensen\Passage\Plugin::passageGroups() called. Use PassageService::passageGroups() instead. See Passage Upgrade Guide.");
+		//trigger_error("Deprecated method \KurtJensen\Passage\Plugin::passageGroups() called. Use app('PassageService')::passageGroups() instead.", E_USER_DEPRECATED);
+		return app('PassageService')::passageGroups();
 	}
 
 	public static function hasGroupName($group_name) {
-		$groups = \System\Classes\PluginManager::instance()->findByNamespace(__CLASS__)->passage_groups();
+		traceLog("Deprecated method \KurtJensen\Passage\Plugin::hasGroupName() called. Use PassageService::hasGroupName() instead. See Passage Upgrade Guide.");
+		//trigger_error("Deprecated method \KurtJensen\Passage\Plugin::hasGroupName() called. Use app('PassageService')::hasGroupName() instead.", E_USER_DEPRECATED);
+		$groups = app('PassageService')::passageGroups();
 		return in_array($group_name, $groups);
 	}
 
 	public static function hasGroup($group_code) {
-		$groups = \System\Classes\PluginManager::instance()->findByNamespace(__CLASS__)->passage_groups();
+		traceLog("Deprecated method \KurtJensen\Passage\Plugin::hasGroup() called. Use PassageService::hasGroup() instead. See Passage Upgrade Guide.");
+		//trigger_error("Deprecated method \KurtJensen\Passage\Plugin::hasGroup() called. Use app('PassageService')::hasGroup() instead.", E_USER_DEPRECATED);
+		$groups = app('PassageService')::passageGroups();
 		return array_key_exists($group_code, $groups);
 	}
 }

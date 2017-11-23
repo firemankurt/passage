@@ -15,7 +15,7 @@ In the backend under Users you will find a button at the top called __"User Grou
 
 ###User Permisions in Pages or Partials######
 
-On a page you may restrict access to a portion of view by using the following code:
+On a page you may restrict access to a portion of view by using the following twig functions:
 
     {% if can('calendar_meetings') %}
 
@@ -57,12 +57,27 @@ On a page you may restrict access to a portion of view by using the following co
     <p>This will show for all users regardless of permissions.</p>
 
 
+##Available Twig Functions##
+- can('KeyName') - Check a passage key name
+- hasKeyName('KeyName') - Check a passage key name
+- hasKeyNames(['KeyName1','KeyName2','KeyName3']) - Check an array of passage key names
+- hasKey(KeyId) (where KeyId is an integer) - Check a passage key id
+- hasKeys([KeyId1,KeyId2,KeyId3]) - Check an array of passage key ids
+
+- inGroupName('GroupName') - Check a passage group name
+- inGroupNames(['Group Name','Group Name 2','Group Name 3']) - Check an array of passage group names
+- inGroup('GroupCode') - Check a passage group code
+- inGroups(['GroupCode1','GroupCode2','GroupCode3']) - Check an array of passage group codes
+
 ###User Permisions in Your Own Plugins######
 
-
+    // Passage Service Methods can be accessed in one of two ways:
+    $permission_keys_by_name = PassageService::passageKeys(); // by Alias
+    //OR
+    $permission_keys_by_name = app('PassageService')::passageKeys(); // by App Service
 
 	// Get all permision keys for the user in an array
-	$permission_keys_by_name = \KurtJensen\Passage\Plugin::passageKeys();
+	$permission_keys_by_name = app('PassageService')::passageKeys();
 
 	/**
 	* OR
@@ -71,7 +86,7 @@ On a page you may restrict access to a portion of view by using the following co
 	**/
 
 	// check for permission directly using hasKeyName( $key_name )
-	$permissionGranted = \KurtJensen\Passage\Plugin::hasKeyName('view_magic_dragon');
+	$permissionGranted = app('PassageService')::hasKeyName('view_magic_dragon');
 	if($permissionGranted) {
 		// Do stuff
 	}
@@ -84,12 +99,12 @@ On a page you may restrict access to a portion of view by using the following co
 	* 
 	* 	Example:
 	* 	$model->perm_id = 5 which came from a dropdown that contained keys 
-	* 	from \KurtJensen\Passage\Plugin::passageKeys();
+	* 	from PassageService::passageKeys();
 	**/
 
 	$model = Model::first();
 	// check for permission directly using hasKey( $key_id )
-	if(\KurtJensen\Passage\Plugin::hasKey($model->perm_id)) {
+	if(PassageService::hasKey($model->perm_id)) {
         // Do Stuff
     }else{
         // Do other Stuff if user does NOT have permission  
@@ -102,7 +117,7 @@ On a page you may restrict access to a portion of view by using the following co
 	**/
 
 	// You can get array of the users groups keyed by the code of the group
-	$groups = \KurtJensen\Passage\Plugin::passageGroups()
+	$groups = PassageService::passageGroups()
 
 	/**
 	* OR
@@ -111,7 +126,7 @@ On a page you may restrict access to a portion of view by using the following co
 	**/
 
 	// use hasGroup($group_code) to check membership
-	$isCool = \KurtJensen\Passage\Plugin::hasGroup('cool_people')
+	$isCool = PassageService::hasGroup('cool_people')
 
 	/**
 	* OR
@@ -122,7 +137,23 @@ On a page you may restrict access to a portion of view by using the following co
 	**/
 
 	// use hasGroupName($group_name) to check membership
-	$isInGroupNamedCool = \KurtJensen\Passage\Plugin::hasGroupName('Cool')
+	$isInGroupNamedCool = PassageService::hasGroupName('Cool')
+
+##Available Passage Service Methods##
+- passageKeys() - Get an array of all approved passage keys for the user
+- can($key_name) - (alias of hasKeyName())
+- hasKeyName($key_name) - Check a passage key name
+- hasKey(integer $key_id) - Check a passage key id
+- hasKeys(array $check_key_ids) - Check an array of passage key ids
+- hasKeyNames(array $check_keys) - Check an array of passage key names
+
+- passageGroups() - Get an array of all approved passage groups for the user
+- inGroupName($group_name) - Check a passage group name
+- hasGroupName($group_name) - (alias of inGroupName())
+- inGroup($group_code) - Check a passage group code
+- hasGroup($group_code) - (alias of inGroup())
+- inGroups(array $check_group_codes) - Check an array of passage group ids
+- inGroupNames(array $check_groups) - Check an array of passage group names
 
 
 ## Like this plugin?

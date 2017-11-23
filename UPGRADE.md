@@ -1,7 +1,27 @@
 # Upgrade guide
+- [Upgrading to 1.0.11 from 1.0.10](#upgrade-1.0.11)
+
 - [Upgrading to 1.0.5 from 1.0.4](#upgrade-1.0.5)
 
 - [Upgrading from Shahiem Seymor's Frontend User Roles Manager](#roles)
+
+<a name="upgrade-1.0.11"></a>
+## Upgrading To 1.0.11
+**This is an important update that contains breaking changes.**
+Permission methods for PHP code have changed.
+Passage Service Methods can be accessed in one of two ways:
+
+    $permission_keys_by_name = PassageService::passageKeys(); // by Alias
+
+or
+
+    $permission_keys_by_name = app('PassageService')::passageKeys(); // by App Service
+
+This will no longer work after version future version 1.0.12:
+
+    $permission_keys_by_name = \KurtJensen\Passage\Plugin::passageKeys();
+
+If you have other plugins that rely on Passage Permissions it is suggested that you ensure they have been updated to be compatible with version 1.0.12 or application will halt by throwing a Deprecated method error. 
 
 <a name="upgrade-1.0.5"></a>
 ## Upgrading To 1.0.5
