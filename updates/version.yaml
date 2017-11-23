@@ -12,4 +12,4 @@
 1.0.9: Prevents unactivated users from having any permissions
 1.0.10: Fixed nullpointer when no user is logged in ( Thanks jhendess )
 1.0.11:
-    - '!!! This update contains breaking changes that may affect other plugins. Permission methods for PHP code are now accessed by App Service like app('PassageService')::passageKeys() or by alias like PassageService::passageKeys().'
+    - "!!! This update contains breaking changes that may affect other plugins. Permission methods for PHP code are now accessed by App Service like app('PassageService')::passageKeys() or by alias like PassageService::passageKeys()."
