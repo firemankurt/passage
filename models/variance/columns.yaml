@@ -1,0 +1,18 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    user_id:
+        relation: user
+        select: concat( surname,', ',name,' - ',email)
+        label: kurtjensen.passage::lang.variance.user_id
+    key_id:
+        relation: key
+        select: name
+        label: kurtjensen.passage::lang.variance.key_id
+    grant:
+        label: kurtjensen.passage::lang.variance.grant
+        type: switch
+    description:
+        label: kurtjensen.passage::lang.variance.description

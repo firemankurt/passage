@@ -1,0 +1,16 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    user_id:
+        label: kurtjensen.passage::lang.variance.user_id
+        type: dropdown
+    key_id:
+        label: kurtjensen.passage::lang.variance.key_id
+        type: dropdown
+    grant:
+        label: kurtjensen.passage::lang.variance.grant
+        type: checkbox
+    description:
+        label: kurtjensen.passage::lang.variance.description

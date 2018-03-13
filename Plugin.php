@@ -54,10 +54,20 @@ class Plugin extends PluginBase {
 				'passage_keys' => [
 					'label' => 'kurtjensen.passage::lang.plugin.backend_menu',
 					'icon' => 'icon-key',
+					'order' => 1001,
 					'code' => 'passage',
 					'owner' => 'RainLab.User',
 					'permissions' => ['kurtjensen.passage.*'],
 					'url' => Backend::url('kurtjensen/passage/keys'),
+				],
+				'variance' => [
+					'label' => 'kurtjensen.passage::lang.plugin.backend_variance',
+					'icon' => 'icon-key',
+					'order' => 1002,
+					'code' => 'passage',
+					'owner' => 'RainLab.User',
+					'permissions' => ['kurtjensen.passage.*'],
+					'url' => Backend::url('kurtjensen/passage/variances'),
 				],
 			]);
 		});

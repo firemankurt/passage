@@ -3,7 +3,7 @@
 # ===================================
 
 # Record name
-name: Key
+name: kurtjensen.passage::lang.key.model
 
 # Model Form Field configuration
 form: $/kurtjensen/passage/models/key/fields.yaml
@@ -16,16 +16,13 @@ defaultRedirect: kurtjensen/passage/keys
 
 # Create page
 create:
-    title: Create Key
     redirect: kurtjensen/passage/keys/update/:id
     redirectClose: kurtjensen/passage/keys
 
 # Update page
 update:
-    title: Edit Key
     redirect: kurtjensen/passage/keys
     redirectClose: kurtjensen/passage/keys
 
 # Preview page
 preview:
-    title: Preview Key

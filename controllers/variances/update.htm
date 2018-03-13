@@ -1,6 +1,6 @@
 <?php Block::put('breadcrumb') ?>
     <ul>
-        <li><a href="<?= Backend::url('kurtjensen/passage/keys') ?>"><?= e(trans('kurtjensen.passage::lang.keys_comp.keys')) ?></a></li>
+        <li><a href="<?= Backend::url('kurtjensen/passage/variances') ?>"><?= e(trans('kurtjensen.passage::lang.variances_comp.variances')) ?></a></li>
         <li><?= e($this->pageTitle) ?></li>
     </ul>
 <?php Block::endPut() ?>
@@ -20,7 +20,7 @@
                     data-request="onSave"
                     data-request-data="redirect:0"
                     data-hotkey="ctrl+s, cmd+s"
-                    data-load-indicator="<?= e(trans('kurtjensen.passage::lang.keys_comp.saving')) ?>"
+                    data-load-indicator="<?= e(trans('kurtjensen.passage::lang.variances_comp.saving')) ?>"
                     class="btn btn-primary">
                     <?= e(trans('backend::lang.form.save')) ?>
                 </button>
@@ -29,7 +29,7 @@
                     data-request="onSave"
                     data-request-data="close:1"
                     data-hotkey="ctrl+enter, cmd+enter"
-                    data-load-indicator="<?= e(trans('kurtjensen.passage::lang.keys_comp.saving')) ?>"
+                    data-load-indicator="<?= e(trans('kurtjensen.passage::lang.variances_comp.saving')) ?>"
                     class="btn btn-default">
                     <?= e(trans('backend::lang.form.save_and_close')) ?>
                 </button>
@@ -37,11 +37,11 @@
                     type="button"
                     class="oc-icon-trash-o btn-icon danger pull-right"
                     data-request="onDelete"
-                    data-load-indicator="<?= e(trans('kurtjensen.passage::lang.keys_comp.deleting')) ?>"
-                    data-request-confirm="<?= e(trans('kurtjensen.passage::lang.keys_comp.delete_confirm')) ?>">
+                    data-load-indicator="<?= e(trans('kurtjensen.passage::lang.variances_comp.deleting')) ?>"
+                    data-request-confirm="<?= e(trans('kurtjensen.passage::lang.variances_comp.delete_confirm')) ?>">
                 </button>
                 <span class="btn-text">
-                    <?= e(trans('backend::lang.form.or')) ?> <a href="<?= Backend::url('kurtjensen/passage/keys') ?>"><?= e(trans('backend::lang.form.cancel')) ?></a>
+                    <?= e(trans('backend::lang.form.or')) ?> <a href="<?= Backend::url('kurtjensen/passage/variances') ?>"><?= e(trans('backend::lang.form.cancel')) ?></a>
                 </span>
             </div>
         </div>
@@ -51,6 +51,6 @@
 <?php else: ?>
 
     <p class="flash-message static error"><?= e($this->fatalError) ?></p>
-    <p><a href="<?= Backend::url('kurtjensen/passage/keys') ?>" class="btn btn-default"><?= e(trans('kurtjensen.passage::lang.keys_comp.return')) ?></a></p>
+    <p><a href="<?= Backend::url('kurtjensen/passage/variances') ?>" class="btn btn-default"><?= e(trans('kurtjensen.passage::lang.variances_comp.return')) ?></a></p>
 
 <?php endif ?>

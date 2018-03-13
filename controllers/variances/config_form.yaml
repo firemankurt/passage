@@ -1,0 +1,28 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: kurtjensen.passage::lang.variance.model
+
+# Model Form Field configuration
+form: $/kurtjensen/passage/models/variance/fields.yaml
+
+# Model Class name
+modelClass: KurtJensen\Passage\Models\Variance
+
+# Default redirect location
+defaultRedirect: kurtjensen/passage/variances
+
+# Create page
+create:
+    redirect: kurtjensen/passage/variances/update/:id
+    redirectClose: kurtjensen/passage/variances
+
+# Update page
+update:
+    redirect: kurtjensen/passage/variances
+    redirectClose: kurtjensen/passage/variances
+
+# Preview page
+preview:

@@ -2,6 +2,7 @@
 
 use Auth;
 use KurtJensen\Passage\Models\Key;
+use KurtJensen\Passage\Models\Variance;
 
 /**
  * Passage Service Class
@@ -51,10 +52,26 @@ class KeyRing {
 			if (!self::getUser()) {
 				return [];
 			}
-			self::$keys = Key::whereHas('groups.users', function ($q) {
+			$add = $subtract = [];
+			$variances = Variance::where('user_id', self::getUser()->id)->get(['user_id', 'key_id', 'grant']);
+			foreach ($variances as $variance) {
+				if ($variance->grant) {
+					$add[] = $variance->key_id;
+				} else {
+					$subtract[] = $variance->key_id;
+				}
+			}
+
+			$query = Key::whereHas('groups.users', function ($q) {
 				$q->where('user_id', self::getUser()->id);
-			})
-				->lists('name', 'id');
+			});
+			if ($subtract) {
+				$query->whereNotIn('id', $subtract);
+			}
+			if ($add) {
+				$query->orWhereIn('id', $add);
+			}
+			self::$keys = $query->lists('name', 'id');
 		}
 		return self::$keys;
 	}
