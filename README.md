@@ -12,6 +12,11 @@ In the backend under Users (Rainlab.Users) you will find a sidemenu item called 
 
 In the backend under Users you will find a button at the top called __"User Groups"__. Press button to see groups.  When editing a group you will find check boxes at the bottom for each "Passage Key".  This is where you assign permissions for each user group.
 
+###User Variances######
+
+In the backend under Users (Rainlab.Users) you will find a sidemenu item called __"User Variances".__
+
+User variances allow you to add permission keys to individual users.  You can also remove permission from users by adding a variance and unchecking the __Grant__ checkbox.
 
 ###User Permisions in Pages or Partials######
 
