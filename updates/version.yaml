@@ -16,3 +16,4 @@
 1.1.0:
     - Add Variances for individual users
     - create_variances_table.php
+1.1.1: Keys are now presented in sort order
