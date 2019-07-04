@@ -30,6 +30,8 @@ return [
 		'description' => 'Description',
 		'updated' => 'Updated',
 		'created' => 'Created',
+		'people' => 'People associated by allowed groups ( Variances not considered )',
+		'groups' => 'Groups having this key',
 	],
 
 	'variances_comp' => [ //Controller

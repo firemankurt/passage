@@ -1,0 +1,6 @@
+            <div class="form-control" style="overflow-y: scroll;height: 150px;" disabled="disabled">
+            <?php foreach ($this->groupList($this->vars['formModel']) as $grp){ ?>
+               <?= '<strong>'.$grp->name .'</strong><br>' ?>
+        
+        	<?php } ?>
+            </div>

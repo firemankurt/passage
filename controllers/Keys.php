@@ -5,6 +5,7 @@ use Backend\Classes\Controller;
 use DB;
 use KurtJensen\Passage\Models\Key;
 use KurtJensen\Passage\Models\UserGroupsKeys;
+use RainLab\User\Models\User;
 use System\Classes\PluginManager;
 
 /**
@@ -117,5 +118,17 @@ class Keys extends Controller {
 
 			UserGroupsKeys::insert($newRows);
 		}
+	}
+
+	public static function userList($key) {
+		$query = User::whereHas('groups.passage_keys', function ($q) use ($key) {
+			$q->where('key_id', $key);
+		});
+
+		return $query->orderBy('surname')->orderBy('name')->get(['surname', 'name', 'email', 'id']);
+	}
+
+	public static function groupList($model) {
+		return $model->groups;
 	}
 }

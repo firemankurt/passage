@@ -1,0 +1,6 @@
+            <div class="form-control" style="overflow-y: scroll;height: 300px;" disabled="disabled">
+            <?php foreach ($this->userList($this->vars['formModel']->id) as $usr){ ?>
+               <?= '<strong>'.$usr->surname .', '.$usr->name .'</strong> - '.$usr->email .'<br>' ?>
+        
+        	<?php } ?>
+            </div>

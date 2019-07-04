@@ -10,3 +10,13 @@ fields:
         label: kurtjensen.passage::lang.key.name
     description:
         label: kurtjensen.passage::lang.key.description
+
+    people:
+        label: kurtjensen.passage::lang.key.people
+        type: partial
+        path: $/kurtjensen/passage/controllers/keys/_people.htm
+
+    groups:
+        label: kurtjensen.passage::lang.key.groups
+        type: partial
+        path: $/kurtjensen/passage/controllers/keys/_groups.htm
