@@ -7,10 +7,12 @@ columns:
         relation: user
         select: concat( surname,', ',name,' - ',email)
         label: kurtjensen.passage::lang.variance.user_id
+        searchable: true
     key_id:
         relation: key
         select: name
         label: kurtjensen.passage::lang.variance.key_id
+        searchable: true
     grant:
         label: kurtjensen.passage::lang.variance.grant
         type: switch

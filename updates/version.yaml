@@ -17,3 +17,4 @@
     - Add Variances for individual users
     - create_variances_table.php
 1.1.1: Keys are now presented in sort order
+1.1.2: Variances are now searchable in backend ( Thanks ndcisiv@github.com )
