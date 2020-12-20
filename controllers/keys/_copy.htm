@@ -1,0 +1,14 @@
+<?php
+foreach ($this->allGroups as $group) {
+echo '
+                <button
+                    type="button"
+                    data-request="onCopy"
+                    data-request-data="CGid: '.$group->id.'"
+                    class="btn btn-default">
+                    '.$group->name.'
+                </button>
+';
+}
+?>
+                <div id="copyGkeys"></div>               

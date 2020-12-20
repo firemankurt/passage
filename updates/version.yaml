@@ -19,3 +19,4 @@
 1.1.1: Keys are now presented in sort order
 1.1.2: Variances are now searchable in backend ( Thanks ndcisiv@github.com )
 1.1.3: People and Groups now listed in Passage Key updated form
+1.1.4: Added copy keys button to usergroup form to make it easy to copy keys between groups.

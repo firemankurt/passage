@@ -58,4 +58,6 @@ return [
 		'error_duplicate' => 'Duplicate variance. Locate and edit existing variance instead of creating duplicate.',
 	],
 	'choose_one' => '-- Choose One --',
+	'copy' => 'Copy From Another Group',
+	'copy_comment' => 'Click group name to copy all keys from that group',
 ];

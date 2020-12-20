@@ -5,6 +5,7 @@ use Backend;
 use BackendAuth;
 use Event;
 use Illuminate\Foundation\AliasLoader;
+use RainLab\User\Controllers\UserGroups;
 use RainLab\User\Models\UserGroup;
 use System\Classes\PluginBase;
 
@@ -44,6 +45,10 @@ class Plugin extends PluginBase {
 				'order' => 'name'];
 		});
 
+		UserGroups::extend(function ($controller) {
+			$controller->implement[] = 'KurtJensen.Passage.Behaviors.KeyCopy';
+		});
+
 		Event::listen('backend.menu.extendItems', function ($manager) {
 			$manager->addSideMenuItems('RainLab.User', 'user', [
 				'usergroups' => [
@@ -75,7 +80,8 @@ class Plugin extends PluginBase {
 		});
 
 		Event::listen('backend.form.extendFields', function ($widget) {
-			if (!$widget->getController() instanceof \RainLab\User\Controllers\UserGroups) {
+			$UGcontroller = $widget->getController();
+			if (!$UGcontroller instanceof \RainLab\User\Controllers\UserGroups) {
 				return;
 			}
 
@@ -87,6 +93,8 @@ class Plugin extends PluginBase {
 				return;
 			}
 
+			$UGcontroller->getAllGroups();
+
 			$widget->addFields([
 				'passage_keys' => [
 					'tab' => 'kurtjensen.passage::lang.plugin.field_tab',
@@ -95,6 +103,14 @@ class Plugin extends PluginBase {
 					'span' => 'left',
 					'type' => 'relation',
 					'emptyOption' => 'kurtjensen.passage::lang.plugin.field_emptyOption',
+				],
+				'copy_btn' => [
+					'tab' => 'kurtjensen.passage::lang.plugin.field_tab',
+					'label' => 'kurtjensen.passage::lang.copy',
+					'commentAbove' => 'kurtjensen.passage::lang.copy_comment',
+					'span' => 'right',
+					'type' => 'partial',
+					'path' => '$/kurtjensen/passage/controllers/keys/_copy.htm',
 				],
 			], 'primary');
 		});
